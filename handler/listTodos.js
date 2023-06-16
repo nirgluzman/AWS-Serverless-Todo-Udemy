@@ -14,7 +14,7 @@ exports.listTodos = async (event, context) => {
   console.log('context', context);
 
   try {
-    const response = await dynamoDbClient.send(
+    const data = await dynamoDbClient.send(
       new ScanCommand({
         TableName: TODOS_TABLE,
       })
@@ -22,7 +22,7 @@ exports.listTodos = async (event, context) => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify(response.Items),
+      body: JSON.stringify(data.Items),
     };
   } catch (error) {
     console.error(error);

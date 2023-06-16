@@ -1,12 +1,12 @@
 @url =  https://4nflpr3gl5.execute-api.us-east-1.amazonaws.com/dev
 
 ###
-GET {{url}}/todos
+GET {{url}}/todos/list
 
 ###
 POST {{url}}/todos
 Content-Type: application/json
 
 {
-    "todo": "complete Serverless Framework"
+    "todo": "practice REACT"
 }
