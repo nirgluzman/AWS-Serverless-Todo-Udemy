@@ -2,7 +2,7 @@ service: sls-todo
 frameworkVersion: '3'
 
 custom:
-  tableName: 'users-table-${sls:stage}'
+  tableName: 'todo-table-${sls:stage}'
 
 provider:
   name: aws
@@ -20,26 +20,29 @@ provider:
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
           Resource:
-            - Fn::GetAtt: [UsersTable, Arn]
+            - Fn::GetAtt: [TodoTable, Arn]
   environment:
-    USERS_TABLE: ${self:custom.tableName}
+    TODOS_TABLE: ${self:custom.tableName}
 
 functions:
-  api:
-    handler: index.handler
+  create:
+    handler: handler/createTodo.createTodo
     events:
-      - httpApi: '*'
+      - http:
+          path: todos
+          method: post
+          cors: true
 
 resources:
   Resources:
-    UsersTable:
+    TodoTable:
       Type: AWS::DynamoDB::Table
       Properties:
         AttributeDefinitions:
-          - AttributeName: userId
+          - AttributeName: id
             AttributeType: S
         KeySchema:
-          - AttributeName: userId
+          - AttributeName: id
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:custom.tableName}
