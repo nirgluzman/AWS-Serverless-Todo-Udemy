@@ -1,0 +1,10 @@
+{
+  "name": "sls-todo",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "express": "^4.18.2",
+    "serverless-http": "^3.1.1",
+    "uuid": "^9.0.0"
+  }
+}
