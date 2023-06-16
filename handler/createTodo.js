@@ -8,6 +8,9 @@ const dynamoDbClient = DynamoDBDocumentClient.from(client);
 const uuid = require('uuid');
 
 exports.createTodo = async (event, context) => {
+  console.log('event', event);
+  console.log('context', context);
+
   const data = JSON.parse(event.body);
 
   if (!data || !data.todo) {
@@ -19,7 +22,21 @@ exports.createTodo = async (event, context) => {
     };
   }
 
-  const timestamp = new Date().getTime();
+  // Define the formatting options
+  const options = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    timeZone: 'Europe/Berlin',
+  };
+
+  // Format the current date and time with the defined options
+  const formatter = new Intl.DateTimeFormat('en-US', options);
+  const timestamp = formatter.format(new Date());
+
   const newTodo = {
     id: uuid.v4(),
     createdAt: timestamp,
