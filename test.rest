@@ -8,8 +8,11 @@ POST {{url}}/todos
 Content-Type: application/json
 
 {
-    "todo": "practice REACT"
+    "todo": "practice Football"
 }
 
 ###
 GET {{url}}/todos/54acd9a3-7ac9-4054-8369-b25a311c73ad
+
+###
+DELETE {{url}}/todos/
