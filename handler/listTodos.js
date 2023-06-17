@@ -6,15 +6,15 @@ const {
 } = require('@aws-sdk/lib-dynamodb');
 
 const TODOS_TABLE = process.env.TODOS_TABLE;
-const client = new DynamoDBClient();
-const dynamoDbClient = DynamoDBDocumentClient.from(client);
+const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
 
 exports.listTodos = async (event, context) => {
   console.log('event', event);
   console.log('context', context);
 
   try {
-    const data = await dynamoDbClient.send(
+    const data = await docClient.send(
       new ScanCommand({
         TableName: TODOS_TABLE,
       })

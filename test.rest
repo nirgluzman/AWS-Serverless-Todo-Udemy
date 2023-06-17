@@ -8,11 +8,20 @@ POST {{url}}/todos
 Content-Type: application/json
 
 {
-    "todo": "practice Football"
+    "todo": "learn AWS"
 }
 
 ###
-GET {{url}}/todos/54acd9a3-7ac9-4054-8369-b25a311c73ad
+GET {{url}}/todos/64c50ad5-5881-4810-b2af-86e56848f0bf
 
 ###
-DELETE {{url}}/todos/
+DELETE {{url}}/todos/64c50ad5-5881-4810-b2af-86e56848f0bf
+
+###
+PATCH {{url}}/todos/ec205f77-d50e-4ebd-aae7-774d09412d04
+Content-Type: application/json
+
+{
+   "checked": true,
+   "todo": "learn Serverless Framework"
+}

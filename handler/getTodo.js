@@ -3,8 +3,8 @@ const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
 const { DynamoDBDocumentClient, GetCommand } = require('@aws-sdk/lib-dynamodb');
 
 const TODOS_TABLE = process.env.TODOS_TABLE;
-const client = new DynamoDBClient();
-const dynamoDbClient = DynamoDBDocumentClient.from(client);
+const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
 
 exports.getTodo = async (event, context) => {
   console.log('event', event);
@@ -16,13 +16,13 @@ exports.getTodo = async (event, context) => {
     return {
       statusCode: 400,
       body: JSON.stringify({
-        message: 'ID not found',
+        message: 'missing ID in path parameters',
       }),
     };
   }
 
   try {
-    const data = await dynamoDbClient.send(
+    const data = await docClient.send(
       new GetCommand({
         TableName: TODOS_TABLE,
         Key: { id },

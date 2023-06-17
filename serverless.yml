@@ -27,6 +27,7 @@ provider:
 functions:
   create:
     handler: handler/createTodo.createTodo
+    description: CREATE a new item in table
     events:
       - http:
           path: todos
@@ -34,6 +35,7 @@ functions:
           cors: true
   list:
     handler: handler/listTodos.listTodos
+    description: SCAN table to return all items
     events:
       - http:
           path: todos/list
@@ -41,6 +43,7 @@ functions:
           cors: true
   get:
     handler: handler/getTodo.getTodo
+    description: GET an item by ID
     events:
       - http:
           path: todos/{id}
@@ -48,10 +51,19 @@ functions:
           cors: true
   delete:
     handler: handler/deleteTodo.deleteTodo
+    description: DELETE an item by ID
     events:
       - http:
           path: todos/{id}
           method: delete
+          cors: true
+  update:
+    handler: handler/updateTodo.updateTodo
+    description: UPDATE the Attributes of an item
+    events:
+      - http:
+          path: todos/{id}
+          method: patch
           cors: true
 
 resources:

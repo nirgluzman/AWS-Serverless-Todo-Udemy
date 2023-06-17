@@ -1,9 +1,10 @@
+// https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/javascript_dynamodb_code_examples.html
 const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
 const { DynamoDBDocumentClient, PutCommand } = require('@aws-sdk/lib-dynamodb');
 
 const TODOS_TABLE = process.env.TODOS_TABLE;
-const client = new DynamoDBClient();
-const dynamoDbClient = DynamoDBDocumentClient.from(client);
+const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
 
 const uuid = require('uuid');
 
@@ -17,7 +18,7 @@ exports.createTodo = async (event, context) => {
     return {
       statusCode: 400,
       body: JSON.stringify({
-        message: 'Missing todo',
+        message: 'missing body or todo',
       }),
     };
   }
@@ -46,7 +47,7 @@ exports.createTodo = async (event, context) => {
   };
 
   try {
-    await dynamoDbClient.send(
+    await docClient.send(
       new PutCommand({
         TableName: TODOS_TABLE,
         Item: newTodo,
